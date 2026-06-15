@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JE ISLAND | Best Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* American Style Color Palette */
+        :root {
+            --usa-red: #B22234;
+            --usa-blue: #3C3B6E;
+            --usa-white: #FFFFFF;
+            --bg-light: #f4f6f9;
+            --shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Base Resets & Typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Updated Body with American Star Background */
+        /* 1. Base Body Settings */
+        body {
+            background-color: var(--usa-blue);
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 2. Star Layer One: Slightly bigger, moving forward */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            z-index: -1; /* Keeps it behind your videos */
+            pointer-events: none; /* Stops it from blocking clicks */
+            /* Small white stars, 40% opacity */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 51 48'%3E%3Cpath fill='%23ffffff' fill-opacity='0.4' d='M25.5 0l7.8 15.8 17.4 2.5-12.6 12.3 3 17.4-15.6-8.2-15.6 8.2 3-17.4-12.6-12.3 17.4-2.5z'/%3E%3C/svg%3E");
+            background-size: 60px 60px;
+            transform: rotate(45deg); /* Tilted 45 degrees */
+            animation: starDrift 30s linear infinite;
+        }
+
+        /* 3. Star Layer Two: Much smaller, moving backwards for 3D depth */
+        body::after {
+            content: "";
+            position: fixed;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            z-index: -2;
+            pointer-events: none;
+            /* Even smaller white stars, 20% opacity */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 51 48'%3E%3Cpath fill='%23ffffff' fill-opacity='0.2' d='M25.5 0l7.8 15.8 17.4 2.5-12.6 12.3 3 17.4-15.6-8.2-15.6 8.2 3-17.4-12.6-12.3 17.4-2.5z'/%3E%3C/svg%3E");
+            background-size: 35px 35px;
+            transform: rotate(-45deg); /* Tilted the opposite direction */
+            animation: starDrift 45s linear infinite reverse;
+        }
+
+        /* 4. The Animation Engine that moves them */
+        @keyframes starDrift {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 1000px; }
+        }
+
+        /* Updated Gallery Title so it's readable on the new blue background */
+        .gallery-title {
+            text-align: center;
+            font-size: 2.8rem;
+            color: var(--usa-white); /* Changed to white */
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.4); /* Added a drop shadow for extra pop */
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            color: var(--bg-light);
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulseWarning {
+            0% { background-color: var(--usa-red); transform: scale(1); }
+            50% { background-color: #ff3b3b; transform: scale(1.02); box-shadow: 0 0 15px rgba(178, 34, 52, 0.6); }
+            100% { background-color: var(--usa-red); transform: scale(1); }
+        }
+
+        @keyframes textPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            background-color: var(--usa-blue);
+            color: var(--usa-white);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 8px solid var(--usa-red);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            text-shadow: 3px 3px 0px var(--usa-red), 6px 6px 0px rgba(0,0,0,0.2);
+            animation: textPop 1s ease-out;
+        }
+
+        /* Warning Banner */
+        .warning-banner {
+            background-color: var(--usa-red);
+            color: var(--usa-white);
+            text-align: center;
+            padding: 10px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulseWarning 2s infinite;
+        }
+
+        /* Main Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            background: var(--usa-white);
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-left: 10px solid var(--usa-blue);
+            margin-bottom: 50px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--usa-red);
+            padding: 3px;
+            background: var(--usa-white);
+            object-fit: cover;
+            margin-bottom: 15px;
+            transition: transform 0.4s ease;
+        }
+
+        .profile-pic:hover {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--usa-blue);
+            margin-bottom: 20px;
+            text-transform::unset;
+        }
+
+        .social-link {
+            display: inline-block;
+            background-color: var(--usa-blue);
+            color: var(--usa-white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: wavy;
+            font-weight: 900;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(60, 59, 110, 0.4);
+        }
+
+        .social-link:hover {
+            background-color: var(--usa-red);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(178, 34, 52, 0.5);
+        }
+
+        /* Video Gallery */
+        
+
+        .gallery-title::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 5px;
+            background: var(--usa-red);
+            margin: 10px auto 0;
+            border-radius: 5px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .video-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .video-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* Video Cards */
+        .video-card {
+            background: var(--usa-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border-bottom: 5px solid var(--usa-blue);
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* JavaScript will add this class when scrolled into view */
+        .show-element {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            border-bottom-color: var(--usa-red);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 177.77%; /* 9:16 aspect ratio for shorts */
+            height: 0;
+            background: #000;
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-info {
+            padding: 20px;
+            text-align: center;
+            background: var(--usa-white);
+        }
+
+        .video-info h3 {
+            font-size: 1.5rem;
+            color: var(--usa-blue);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--usa-blue);
+            color: var(--usa-white);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            font-weight: 700;
+            border-top: 5px solid var(--usa-red);
+        }
+        
+    </style>
+</head>
+<body>
+    
+
+    <div class="warning-banner">
+        🚨 Warning: Only For Fun! 🚨
+    </div>
+
+    <header>
+        <h1>J.E. ISLAND</h1>
+    </header>
+
+    <main class="container">
+        
+        <section class="intro-section scroll-animate">
+            <img src="your-dp.jpg" alt="@agent_asu_007 Profile Picture" class="profile-pic">
+            <p class="intro-text">
+                Thank you so much for stopping by to view some good stuff work! We have pour our best creativity into every edit, and I truly appreciate you taking the time to check them out. Below, you'll find a curated collection of youtube absolute best creations.
+            </p>
+            <a href="https://instagram.com/agent_asu_007" target="_blank" class="social-link">
+                 @agent_asu_007
+            </a>
+        </section>
+
+        <h2 class="gallery-title">TOP 5 EDITS</h2>
+        
+        <div class="video-grid">
+            
+            <div class="video-card scroll-animate" style="transition-delay: 0.1s;">
+                <div class="video-wrapper">
+                    <video playsinline loop controls poster="poster1.jpg">
+                        <source src="video1.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-info"><h3>EDIT 01</h3></div>
+            </div>
+
+            <div class="video-card scroll-animate" style="transition-delay: 0.2s;">
+                <div class="video-wrapper">
+                    <video playsinline loop controls poster="poster2.jpg">
+                        <source src="video2.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-info"><h3>EDIT 02</h3></div>
+            </div>
+
+            <div class="video-card scroll-animate" style="transition-delay: 0.3s;">
+                <div class="video-wrapper">
+                    <video playsinline loop controls poster="poster3.jpg">
+                        <source src="video3.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-info"><h3>EDIT 03</h3></div>
+            </div>
+
+            <div class="video-card scroll-animate" style="transition-delay: 0.4s;">
+                <div class="video-wrapper">
+                    <video playsinline loop controls poster="poster4.jpg">
+                        <source src="video4.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-info"><h3>EDIT 04</h3></div>
+            </div>
+
+            <div class="video-card scroll-animate" style="transition-delay: 0.5s;">
+                <div class="video-wrapper">
+                    <video playsinline loop controls poster="poster5.jpg">
+                        <source src="video5.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-info"><h3>EDIT 05</h3></div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year"></span> JF ISLAND. EDITS BY @AGENT_ASU_007.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Auto-update the year in the footer
+            document.getElementById("year").textContent = new Date().getFullYear();
+
+            // 2. UI Scroll Animations for the cool pop-in effect
+            const uiObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show-element');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.scroll-animate').forEach(el => uiObserver.observe(el));
+
+            // 3. The Video Auto-Play Engine (No Enter Screen)
+            const videos = document.querySelectorAll('video');
+            
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const vid = entry.target;
+                    
+                    if (entry.isIntersecting) {
+                        // Plays the video when it enters the screen
+                        vid.play().catch(e => {
+                            console.log("Browser blocked autoplay (usually because it wasn't muted).");
+                        });
+                    } else {
+                        // Pauses and rewinds when you scroll past it
+                        vid.pause();
+                        vid.currentTime = 0; 
+                    }
+                });
+            }, { threshold: 0.6 }); // Triggers when 60% of the video is visible
+
+            // Tell the observer to watch all the videos
+            videos.forEach(video => {
+                videoObserver.observe(video);
+            });
+        });
+    </script>
+
+</body>
+</html>
