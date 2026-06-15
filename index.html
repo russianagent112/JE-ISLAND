@@ -41,13 +41,13 @@
             left: -100%;
             width: 300%;
             height: 300%;
-            z-index: -1; /* Keeps it behind your videos */
-            pointer-events: none; /* Stops it from blocking clicks */
-            /* Small white stars, 40% opacity */
+            z-index: -1; 
+            pointer-events: none; 
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 51 48'%3E%3Cpath fill='%23ffffff' fill-opacity='0.4' d='M25.5 0l7.8 15.8 17.4 2.5-12.6 12.3 3 17.4-15.6-8.2-15.6 8.2 3-17.4-12.6-12.3 17.4-2.5z'/%3E%3C/svg%3E");
             background-size: 60px 60px;
-            transform: rotate(45deg); /* Tilted 45 degrees */
-            animation: starDrift 30s linear infinite;
+            /* Replaced background-position with hardware-accelerated transform */
+            will-change: transform;
+            animation: starDrift1 30s linear infinite;
         }
 
         /* 3. Star Layer Two: Much smaller, moving backwards for 3D depth */
@@ -60,30 +60,37 @@
             height: 300%;
             z-index: -2;
             pointer-events: none;
-            /* Even smaller white stars, 20% opacity */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 51 48'%3E%3Cpath fill='%23ffffff' fill-opacity='0.2' d='M25.5 0l7.8 15.8 17.4 2.5-12.6 12.3 3 17.4-15.6-8.2-15.6 8.2 3-17.4-12.6-12.3 17.4-2.5z'/%3E%3C/svg%3E");
             background-size: 35px 35px;
-            transform: rotate(-45deg); /* Tilted the opposite direction */
-            animation: starDrift 45s linear infinite reverse;
+            /* Replaced background-position with hardware-accelerated transform */
+            will-change: transform;
+            animation: starDrift2 45s linear infinite;
         }
 
-        /* 4. The Animation Engine that moves them */
-        @keyframes starDrift {
-            0% { background-position: 0 0; }
-            100% { background-position: 1000px 1000px; }
+        /* 4. The Animation Engine that moves them (GPU Accelerated) */
+        @keyframes starDrift1 {
+            /* 1200px is a perfect multiple of the 60px background size for a seamless loop */
+            0% { transform: rotate(45deg) translate3d(0, 0, 0); }
+            100% { transform: rotate(45deg) translate3d(1200px, 1200px, 0); }
+        }
+
+        @keyframes starDrift2 {
+            /* 1050px is a perfect multiple of the 35px background size for a seamless loop */
+            0% { transform: rotate(-45deg) translate3d(0, 0, 0); }
+            100% { transform: rotate(-45deg) translate3d(-1050px, -1050px, 0); }
         }
 
         /* Updated Gallery Title so it's readable on the new blue background */
         .gallery-title {
             text-align: center;
             font-size: 2.8rem;
-            color: var(--usa-white); /* Changed to white */
+            color: var(--usa-white); 
             margin-bottom: 30px;
             position: relative;
             display: inline-block;
             left: 50%;
             transform: translateX(-50%);
-            text-shadow: 3px 3px 0px rgba(0,0,0,0.4); /* Added a drop shadow for extra pop */
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.4); 
         }
 
         /* Typography */
@@ -186,7 +193,7 @@
             font-weight: 700;
             color: var(--usa-blue);
             margin-bottom: 20px;
-            text-transform::unset;
+            text-transform: unset;
         }
 
         .social-link {
@@ -195,7 +202,7 @@
             color: var(--usa-white);
             padding: 12px 30px;
             border-radius: 30px;
-            text-decoration: wavy;
+            text-decoration: none;
             font-weight: 900;
             font-size: 1.1rem;
             transition: all 0.3s ease;
@@ -207,9 +214,6 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(178, 34, 52, 0.5);
         }
-
-        /* Video Gallery */
-        
 
         .gallery-title::after {
             content: '';
@@ -299,7 +303,6 @@
 </head>
 <body>
     
-
     <div class="warning-banner">
         🚨 Warning: Only For Fun! 🚨
     </div>
@@ -392,31 +395,9 @@
             }, { threshold: 0.15 });
 
             document.querySelectorAll('.scroll-animate').forEach(el => uiObserver.observe(el));
-
-            // 3. The Video Auto-Play Engine (No Enter Screen)
-            const videos = document.querySelectorAll('video');
             
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const vid = entry.target;
-                    
-                    if (entry.isIntersecting) {
-                        // Plays the video when it enters the screen
-                        vid.play().catch(e => {
-                            console.log("Browser blocked autoplay (usually because it wasn't muted).");
-                        });
-                    } else {
-                        // Pauses and rewinds when you scroll past it
-                        vid.pause();
-                        vid.currentTime = 0; 
-                    }
-                });
-            }, { threshold: 0.6 }); // Triggers when 60% of the video is visible
-
-            // Tell the observer to watch all the videos
-            videos.forEach(video => {
-                videoObserver.observe(video);
-            });
+            // Note: The Video Auto-Play Engine has been successfully removed.
+            // Videos will now play normally only when the user interacts with them!
         });
     </script>
 
